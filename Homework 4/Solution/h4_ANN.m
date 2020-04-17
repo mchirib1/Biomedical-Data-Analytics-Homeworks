@@ -44,7 +44,7 @@ net.performParam.normalization = 'standard'; %normalizes the distance to unity a
 for some reason when I use the logsig function I get convergence to a much
 better cost function minima then if I use either tansig or hardlim
 %}
-%net.layers{1}.transferFcn = 'logsig'; %tansig; hardlim
+net.layers{1}.transferFcn = 'logsig'; %tansig; hardlim
 
 
 
@@ -105,9 +105,9 @@ and test sets built into the feedforword network:
 
 Below I will compare the labeling accuracies of each of the networks.
 %}
-figure(1);
+figure(5);
 plotperform(tr);
-figure(2);
+figure(6);
 plotperform(tr_ff);
 
 
@@ -146,16 +146,16 @@ Total_train_accuracies = [Consensus_accuracy,Percentile_accuracy;...
 %====================================================
 % YOU: plot confusion matrix
 %Confusion matrices are commented out becuase they were annoying popping up
-%{
+
 confmat_c = confusionmat(tumortypeTrain,Consensus_diagnosis);
 figure(1)
 confusionchart(confmat_c);
-confmat_p = confusionmat(tumortypeTrain,Percentile_diagnosis);
-figure(2)
-confusionchart(confmat_p);
+% confmat_p = confusionmat(tumortypeTrain,Percentile_diagnosis);
+% figure(2)
+% confusionchart(confmat_p);
 
 confmat_cff = confusionmat(tumortypeTrain,Consensus_diagnosisff);
-figure(3)
+figure(2)
 confusionchart(confmat_cff);
 % confmat_pff = confusionmat(tumortypeTrain,Percentile_diagnosisff);
 %}
@@ -191,12 +191,16 @@ Total_test_accuracies = [Consensus_accuracyt,Percentile_accuracyt;...
                     Consensus_accuracyfft,Percentile_accuracyfft]
 
 % YOU: plot confusion matrix
+confmat_ct = confusionmat(tumortypeTest,Consensus_diagnosist);
+figure(3)
+confusionchart(confmat_ct);
 
-
+confmat_cfft = confusionmat(tumortypeTest,Consensus_diagnosisfft);
+figure(4)
+confusionchart(confmat_cfft);
 %Functions
 %==========================================================================
-%Code:
-%       EW  = [1 0 0 0]';
+%       EW = [1 0 0 0]';
 %       BL  = [0 1 0 0]';
 %       NB  = [0 0 1 0]';
 %       RM  = [0 0 0 1]';
